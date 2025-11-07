@@ -51,7 +51,23 @@ function resetHandler() {
     }
 }
 
+function intensityHandler(e) {
+    if(e.deltaY < 0) {
+        opacity = window.getComputedStyle(e.target).getPropertyValue("opacity");
+        opacity = parseFloat(opacity);
+        opacity = opacity >= 1.0 ? 1.0 : opacity + 0.1;
+        e.target.style.opacity = opacity;
+    }
+    if(e.deltaY > 0) {
+        opacity = window.getComputedStyle(e.target).getPropertyValue("opacity");
+        opacity = parseFloat(opacity);
+        opacity = opacity <= 0.1 ? 0.1 : opacity - 0.1;
+        e.target.style.opacity = opacity;
+    }
+}
+
 gridContainer.addEventListener("mouseover", hoverHandler);
+gridContainer.addEventListener("wheel", intensityHandler);
 resetButton.addEventListener("click", resetHandler);
 
 buildGrid(DEFAULT_GRID_DIMENSION);
